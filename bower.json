@@ -1,0 +1,29 @@
+{
+  "name": "fileserver",
+  "version": "0.0.1",
+  "authors": [
+    "rocknrollmarc <marc.bluemner@gmail.com>"
+  ],
+  "description": "Go Markdown Generator",
+  "main": "main.go",
+  "moduleType": [
+    "es6"
+  ],
+  "keywords": [
+    "Markdown",
+    "Go",
+    "Generator"
+  ],
+  "license": "MIT",
+  "homepage": "rocknrollmarc.github.io",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "*"
+  }
+}

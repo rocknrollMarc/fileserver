@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="/bower_conponents/bootstrap.min.css" />
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-title">
+        <h1>Markdown Generator</h1>
+        <p class="lead">Generate your Markdown woth Go</p>
+        <hr />
+      </div>
+      <form action="/markdown" method="POST">
+        <div class="form-group">
+          <textarea class="form-control" name="body" cols="30"
+            rows="10"></textarea>
+          </div>
+
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary pull-right"/>
+          </div>
+      </form>
+    </div>
+    <script src="/bower_components/js/bootstrap.mim.js"></script>
+  </body>
+</html>

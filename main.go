@@ -2,30 +2,35 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
+	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"github.com/russross/blackfriday"
 )
 
 func main() {
+	// Middleware stack (Negroni)
+	n := negroni.New(
+		negroni.NewRecovery(),
+		negroni.HandlerFunc(MyMiddleware),
+		negroni.NewLogger(),
+		negroni.NewStatic(http.Dir("public")),
+	)
 
-	r := mux.NewRouter().StrictSlash(false)
-	r.HandleFunc("/", HomeHandler)
+	n.Run(":8080")
+}
 
-	// Posts collection
-	posts := r.Path("/posts").Subrouter()
-	posts.Methods("GET").HandlerFunc(PostsIndexHandler)
-	posts.Methods("POST").HandlerFunc(PostsCreateHandler)
+func MyMiddleware(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+	log.Println("Logging on the way there...")
 
-	// Posts singular
-	post := r.PathPrefix("/posts/{id}").Subrouter()
-	post.Methods("GET").Path("/edit").HandlerFunc(PostEditHandler)
-	post.Methods("PUT", "POST").HandlerFunc(PostUpdateHandler)
-	post.Methods("DELETE").HandlerFunc(PostDeleteHandler)
-
-	fmt.Println("Starting server on :8080")
-	http.ListenAndServe(":8080", r)
+	if r.URL.Query().Get("password") == "meinefrau011280" {
+		next(rw, r)
+	} else {
+		http.Error(rw, "Not Authorized", 401)
+	}
+	log.Println("Logging on the way back...")
 }
 
 func HomeHandler(rw http.ResponseWriter, r *http.Request) {
